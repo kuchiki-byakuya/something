@@ -3,22 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Title Here</title>
+    <title>Device Notifications Example</title>
 </head>
 <body>
     <h1>Hello World</h1>
     <script>
+        // Check if the Notifications API is supported
         if ("Notification" in window) {
+            console.log("Notification is supported");
+            // Check the current notification permission
             if (Notification.permission === 'granted') {
-                notify();
+                notify(); // Show the notification
             } else {
-                Notification.requestPermission().then((res) => {
-                    if (res === 'granted') {
-                        notify();
-                    } else if (res === 'denied') {
+                // Request permission if not granted
+                Notification.requestPermission().then((permission) => {
+                    if (permission === 'granted') {
+                        console.log("Permission granted");
+                        notify(); // Show the notification if granted
+                    } else {
                         console.log("Permission denied");
-                    } else if (res === 'default') {
-                        console.log("Permission not granted");
                     }
                 });
             }
@@ -26,8 +29,13 @@
             console.log("Notification not supported");
         }
 
+        // Function to create and show a notification
         function notify() {
-            new Notification("Hello World");
+            const notification = new Notification("Hello World", {
+                body: "This is your device notification!",
+                icon: "https://example.com/icon.png" // Optional: URL to an icon
+            });
+            console.log("Notification shown:", notification);
         }
     </script>
 </body>
