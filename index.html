@@ -3,31 +3,33 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Device Notifications Example</title>
+    <title>Button Notification Example</title>
 </head>
 <body>
     <h1>Hello World</h1>
+    <button id="notifyBtn">Show Notification</button>
+
     <script>
-        // Check if the Notifications API is supported
-        if ("Notification" in window) {
-            console.log("Notification is supported");
-            // Check the current notification permission
-            if (Notification.permission === 'granted') {
-                notify(); // Show the notification
+        document.getElementById('notifyBtn').addEventListener('click', function() {
+            // Check if the Notifications API is supported
+            if ("Notification" in window) {
+                // Check the current notification permission
+                if (Notification.permission === 'granted') {
+                    notify(); // Show the notification
+                } else {
+                    // Request permission if not granted
+                    Notification.requestPermission().then((permission) => {
+                        if (permission === 'granted') {
+                            notify(); // Show the notification if granted
+                        } else {
+                            console.log("Permission denied");
+                        }
+                    });
+                }
             } else {
-                // Request permission if not granted
-                Notification.requestPermission().then((permission) => {
-                    if (permission === 'granted') {
-                        console.log("Permission granted");
-                        notify(); // Show the notification if granted
-                    } else {
-                        console.log("Permission denied");
-                    }
-                });
+                console.log("Notification not supported");
             }
-        } else {
-            console.log("Notification not supported");
-        }
+        });
 
         // Function to create and show a notification
         function notify() {
