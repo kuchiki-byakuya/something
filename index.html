@@ -3,42 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Button Notification Example</title>
+    <title>Notification Test</title>
+    <link rel="stylesheet" href="styles.css"> <!-- Optional CSS file -->
+    <script src="index.js" defer></script> <!-- Link to the external JS file -->
 </head>
 <body>
     <h1>Hello World</h1>
     <button id="notifyBtn">Show Notification</button>
-
-    <script>
-        document.getElementById('notifyBtn').addEventListener('click', function() {
-            // Check if the Notifications API is supported
-            if ("Notification" in window) {
-                // Check the current notification permission
-                if (Notification.permission === 'granted') {
-                    notify(); // Show the notification
-                } else {
-                    // Request permission if not granted
-                    Notification.requestPermission().then((permission) => {
-                        if (permission === 'granted') {
-                            notify(); // Show the notification if granted
-                        } else {
-                            console.log("Permission denied");
-                        }
-                    });
-                }
-            } else {
-                console.log("Notification not supported");
-            }
-        });
-
-        // Function to create and show a notification
-        function notify() {
-            const notification = new Notification("Hello World", {
-                body: "This is your device notification!",
-                icon: "https://example.com/icon.png" // Optional: URL to an icon
-            });
-            console.log("Notification shown:", notification);
-        }
-    </script>
 </body>
 </html>
