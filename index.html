@@ -6,38 +6,29 @@
     <title>Your Title Here</title>
 </head>
 <body>
-	<h1>hello world</h1>
-	<script>
-		if("Notification" in window )
-		{
-			if(Notification.permission === 'granted')
-			{
-				notify()
-			}
-			else{
-				Notification.requestPermission().then((res)=>{
-					if(res === 'granted'){
-						console.log("permission granted")
-					}
-					else if(res === 'denied')
-					{
-						console.log("permission denied")
+    <h1>Hello World</h1>
+    <script>
+        if ("Notification" in window) {
+            if (Notification.permission === 'granted') {
+                notify();
+            } else {
+                Notification.requestPermission().then((res) => {
+                    if (res === 'granted') {
+                        notify();
+                    } else if (res === 'denied') {
+                        console.log("Permission denied");
+                    } else if (res === 'default') {
+                        console.log("Permission not granted");
+                    }
+                });
+            }
+        } else {
+            console.log("Notification not supported");
+        }
 
-					}
-					else if(res === 'default')
-					{
-						console.log("permission not granted")
-					}
-				})
-			}
-
-		}
-		else{
-			consol.log("Notification not supported")
-		}
-		function notify(){
-			new Notification("hello world")
-		}
-	</script>
+        function notify() {
+            new Notification("Hello World");
+        }
+    </script>
 </body>
 </html>
